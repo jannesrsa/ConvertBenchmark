@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BenchmarkDotNet.Running;
 
 namespace ConvertBenchmark
@@ -11,7 +7,9 @@ namespace ConvertBenchmark
     {
         public static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<BenchmarkConverter>();
+            var summaryString = BenchmarkRunner.Run<BenchmarkString>();
+            var summaryInt = BenchmarkRunner.Run<BenchmarkInt>();
+            var summaryDateTime = BenchmarkRunner.Run<BenchmarkDateTime>();
 
             Console.ReadKey();
         }
