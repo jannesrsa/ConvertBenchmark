@@ -158,7 +158,13 @@ namespace ConvertBenchmark
                 return null;
             }
 
+            if (value.GetType() == toType)
+            {
+                return Convert.ChangeType(value, toType, cultureInfo);
+            }
+
             var toTypeCode = Type.GetTypeCode(toType);
+
             if (value is string)
             {
                 var strValue = (string)value;

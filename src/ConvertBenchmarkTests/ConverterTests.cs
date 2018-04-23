@@ -18,15 +18,22 @@ namespace ConvertBenchmark.Tests
             var typedDecimal = DecimalStringValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture);
             Assert.AreEqual(DecimalValue, typedDecimal);
 
+            // String
             var typedString = Int32Value.ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture);
             Assert.AreEqual(Int32Value.ToString(), typedString);
 
+            var nullString = ((string)null).ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture);
+            Assert.IsNull(nullString);
+
+            // Guid
             var typedGuid = GuidStringValue.ChangeTypeWithType(typeof(Guid), CultureInfo.InvariantCulture);
             Assert.AreEqual(GuidValue, typedGuid);
 
+            // Int16
             var typedInt16 = Int16StringValue.ChangeTypeWithType(typeof(Int16), CultureInfo.InvariantCulture);
             Assert.AreEqual(Int16Value, typedInt16);
 
+            // Int32
             var typedInt32 = Int32StringValue.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture);
             Assert.AreEqual(Int32Value, typedInt32);
 
@@ -62,6 +69,7 @@ namespace ConvertBenchmark.Tests
             var enumValue = NumberStyles.AllowCurrencySymbol.ToString().ChangeTypeWithType(typeof(NumberStyles), CultureInfo.InvariantCulture);
             Assert.AreEqual(enumValue, NumberStyles.AllowCurrencySymbol);
 
+            // Invalid
             var invalidConversion = Int32Value.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture);
             Assert.AreEqual(Int32Value, invalidConversion);
         }
