@@ -13,13 +13,13 @@ namespace ConvertBenchmark
     [MemoryDiagnoser]
     public class BenchmarkInt
     {
-        public int IntValue { get; } = 256;
-        public string StringIntValue { get; } = "256";
-
-        [Benchmark(Baseline = true)]
-        public object ChangeTypeWithReflection() => Converter.ChangeType(IntValue, typeof(int), CultureInfo.CurrentCulture);
+        public static int IntValue { get; } = 256;
+        public static string StringIntValue { get; } = "256";
 
         [Benchmark]
+        public object ChangeTypeWithReflection() => Converter.ChangeType(IntValue, typeof(int), CultureInfo.CurrentCulture);
+
+        [Benchmark(Baseline = true)]
         public int ChangeTypeWithGeneric() => Converter.ChangeType<int>(IntValue, CultureInfo.CurrentCulture);
 
         [Benchmark]

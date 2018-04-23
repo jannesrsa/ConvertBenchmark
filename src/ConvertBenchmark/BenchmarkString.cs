@@ -14,12 +14,12 @@ namespace ConvertBenchmark
     [MemoryDiagnoser]
     public class BenchmarkString
     {
-        public string StringValue { get; } = Guid.NewGuid().ToString();
-
-        [Benchmark(Baseline = true)]
-        public string ChangeTypeWithGeneric() => Converter.ChangeType<string>(StringValue, CultureInfo.CurrentCulture);
+        public static string StringValue { get; } = Guid.NewGuid().ToString();
 
         [Benchmark]
+        public string ChangeTypeWithGeneric() => Converter.ChangeType<string>(StringValue, CultureInfo.CurrentCulture);
+
+        [Benchmark(Baseline = true)]
         public object ChangeTypeWithReflection() => Converter.ChangeType(StringValue, typeof(string), CultureInfo.CurrentCulture);
     }
 }

@@ -14,14 +14,14 @@ namespace ConvertBenchmark
     [MemoryDiagnoser]
     public class BenchmarkDateTime
     {
-        public DateTime DateTimeValue { get; } = DateTime.MaxValue;
+        public static DateTime DateTimeValue { get; } = DateTime.MaxValue;
 
-        public string StringDateTimeValue { get; } = DateTime.MaxValue.ToString();
-
-        [Benchmark(Baseline = true)]
-        public object ChangeTypeWithReflection() => Converter.ChangeType(DateTimeValue, typeof(DateTime), CultureInfo.CurrentCulture);
+        public static string StringDateTimeValue { get; } = DateTime.MaxValue.ToString();
 
         [Benchmark]
+        public object ChangeTypeWithReflection() => Converter.ChangeType(DateTimeValue, typeof(DateTime), CultureInfo.CurrentCulture);
+
+        [Benchmark(Baseline = true)]
         public DateTime ChangeTypeWithGeneric() => Converter.ChangeType<DateTime>(DateTimeValue, CultureInfo.CurrentCulture);
 
         [Benchmark]
