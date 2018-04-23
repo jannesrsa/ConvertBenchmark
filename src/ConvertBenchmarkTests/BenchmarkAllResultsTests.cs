@@ -44,46 +44,5 @@ namespace ConvertBenchmark.Tests
             // Action
             benchmarkAllResults.ChangeTypeWithReflection_String();
         }
-
-
-        [TestMethod()]
-        public void ChangeType_Load_ReflectionTest()
-        {
-            // Assert
-            var benchmarkAllResults = new BenchmarkAllResults();
-
-            // Action
-            benchmarkAllResults.ChangeType_Load_Reflection();
-        }
-
-        [TestMethod()]
-        public void ChangeType_Load_GenericTest()
-        {
-            // Assert
-            var benchmarkAllResults = new BenchmarkAllResults();
-
-            // Action
-            benchmarkAllResults.ChangeType_Load_Generic();
-        }
-
-        [TestMethod()]
-        public void ChangeType_Load_Generic_StringTest()
-        {
-            // Assert
-            var benchmarkAllResults = new BenchmarkAllResults();
-
-            // Action
-            benchmarkAllResults.ChangeType_Load_Generic_String();
-        }
-
-        [TestMethod()]
-        public void ChangeType_Load_Reflection_StringTest()
-        {
-            // Assert
-            var benchmarkAllResults = new BenchmarkAllResults();
-
-            // Action
-            benchmarkAllResults.ChangeType_Load_Reflection_String();
-        }
     }
 }

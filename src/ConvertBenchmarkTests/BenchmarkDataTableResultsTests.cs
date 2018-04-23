@@ -6,13 +6,13 @@ namespace ConvertBenchmark.Tests
     public class BenchmarkDataTableResultsTests
     {
         [TestMethod()]
-        public void ChangeTypeWithReflectionTest()
+        public void ChangeTypeWithGeneric_StringTest()
         {
             // Assert
             var benchmarkAllResults = new BenchmarkDataTableResults();
 
             // Action
-            benchmarkAllResults.ChangeTypeWithReflection();
+            benchmarkAllResults.ChangeTypeWithGeneric_String();
         }
 
         [TestMethod()]
@@ -26,16 +26,6 @@ namespace ConvertBenchmark.Tests
         }
 
         [TestMethod()]
-        public void ChangeTypeWithGeneric_StringTest()
-        {
-            // Assert
-            var benchmarkAllResults = new BenchmarkDataTableResults();
-
-            // Action
-            benchmarkAllResults.ChangeTypeWithGeneric_String();
-        }
-
-        [TestMethod()]
         public void ChangeTypeWithReflection_StringTest()
         {
             // Assert
@@ -43,6 +33,16 @@ namespace ConvertBenchmark.Tests
 
             // Action
             benchmarkAllResults.ChangeTypeWithReflection_String();
+        }
+
+        [TestMethod()]
+        public void ChangeTypeWithReflectionTest()
+        {
+            // Assert
+            var benchmarkAllResults = new BenchmarkDataTableResults();
+
+            // Action
+            benchmarkAllResults.ChangeTypeWithReflection();
         }
     }
 }

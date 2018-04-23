@@ -138,12 +138,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BenchmarkAllResultsLoad.cs" />
     <Compile Include="BenchmarkAllResults.cs" />
     <Compile Include="BenchmarkDateTime.cs" />
     <Compile Include="BenchmarkGuid.cs" />
     <Compile Include="BenchmarkDataTableResults.cs" />
     <Compile Include="BenchmarkString.cs" />
     <Compile Include="BenchmarkInt.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="TestData.cs" />
