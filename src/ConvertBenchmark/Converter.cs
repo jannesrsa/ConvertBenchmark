@@ -144,6 +144,138 @@ namespace ConvertBenchmark
             return (T)value;
         }
 
+        public static object ChangeTypeWithType(this object value, Type toType, CultureInfo cultureInfo)
+        {
+            if (cultureInfo == null) throw new ArgumentNullException("cultureInfo");
+
+            if (value == null)
+            {
+                if (toType.IsValueType)
+                {
+                    return Activator.CreateInstance(toType);
+                }
+
+                return null;
+            }
+
+            var toTypeCode = Type.GetTypeCode(toType);
+            if (value is string)
+            {
+                var strValue = (string)value;
+                switch (toTypeCode)
+                {
+                    case TypeCode.Int16:
+                        Int16 parseInt16;
+                        if (Int16.TryParse(TrimDecimalPart(strValue, cultureInfo), NumberStyles.Integer, cultureInfo, out parseInt16))
+                        {
+                            return parseInt16;
+                        }
+                        break;
+
+                    case TypeCode.Int32:
+                        Int32 parseInt32;
+                        if (Int32.TryParse(TrimDecimalPart(strValue, cultureInfo), NumberStyles.Integer, cultureInfo, out parseInt32))
+                        {
+                            return parseInt32;
+                        }
+                        break;
+
+                    case TypeCode.Int64:
+                        //string with value "123.000" results in error 'Input string was not in a correct format' if directly attempted to convert to Int64
+                        Int64 parseInt64;
+                        if (Int64.TryParse(TrimDecimalPart(strValue, cultureInfo), NumberStyles.Integer, cultureInfo, out parseInt64))
+                        {
+                            return parseInt64;
+                        }
+                        break;
+
+                    case TypeCode.DateTime:
+                        DateTime parseDateTime;
+                        if (DateTime.TryParse(strValue, cultureInfo, DateTimeStyles.None, out parseDateTime))
+                        {
+                            return parseDateTime;
+                        }
+                        else
+                        {
+                            //If the first try parse failed, we need to attempt to parse using all the avaliable dateTime Patterns.
+                            if (DateTime.TryParseExact(strValue, cultureInfo.DateTimeFormat.GetAllDateTimePatterns(), cultureInfo, DateTimeStyles.None, out parseDateTime))
+                            {
+                                return parseDateTime;
+                            }
+                        }
+                        break;
+
+                    case TypeCode.String:
+                        return strValue;
+
+                    default:
+                        if (toType == typeof(Guid))
+                        {
+                            Guid parseGuid;
+                            if (Guid.TryParse(strValue, out parseGuid))
+                            {
+                                return parseGuid;
+                            }
+                        }
+                        else if (toType == typeof(TimeSpan))
+                        {
+                            TimeSpan parseTimeSpan;
+                            if (TimeSpan.TryParse(strValue, cultureInfo, out parseTimeSpan))
+                            {
+                                return parseTimeSpan;
+                            }
+                        }
+                        else if (toType == typeof(DateTimeOffset))
+                        {
+                            DateTimeOffset parseDateTimeOffset;
+                            if (DateTimeOffset.TryParse(strValue, cultureInfo, DateTimeStyles.None, out parseDateTimeOffset))
+                            {
+                                return parseDateTimeOffset;
+                            }
+                        }
+                        else if (strValue == string.Empty && toType != typeof(string))
+                        {
+                            return ChangeTypeWithType(null, toType, cultureInfo);
+                        }
+                        break;
+                }
+            }
+            else if (toTypeCode == TypeCode.String)
+            {
+                return Convert.ToString(value, cultureInfo);
+            }
+
+            if (toType.IsGenericType &&
+                toType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                toType = Nullable.GetUnderlyingType(toType);
+            }
+
+            try
+            {
+                if (toType is IConvertible || (toType.IsValueType && !toType.IsEnum))
+                {
+                    return Convert.ChangeType(value, toType, cultureInfo);
+                }
+            }
+            catch (InvalidCastException)
+            {
+                //swallow as we have one more attempt left to convert
+            }
+            catch (FormatException)
+            {
+                //swallow as we have one more attempt left to convert
+            }
+
+            var converter = TypeDescriptor.GetConverter(toType);
+            if (converter != null && converter.CanConvertFrom(value.GetType()))
+            {
+                return converter.ConvertFrom(null, cultureInfo, value);
+            }
+
+            return value;
+        }
+
         public static bool IsNullOrEmptyString(this object value)
         {
             if (value == null || value.Equals(string.Empty))

@@ -78,5 +78,38 @@ namespace ConvertBenchmark
                 var typedBool = BoolStringValue.ChangeType(typeof(bool), CultureInfo.InvariantCulture);
             }
         }
+
+        [Benchmark]
+        public void ChangeTypeWithType_Load()
+        {
+            for (int i = 0; i < LoadCount; i++)
+            {
+                var typedDateTime = DateTimeValue.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture);
+                var typedDecimal = DecimalValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture);
+                var typedString = StringValue.ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture);
+                var typedGuid = GuidValue.ChangeTypeWithType(typeof(Guid), CultureInfo.InvariantCulture);
+                var typedInt16 = Int16Value.ChangeTypeWithType(typeof(Int16), CultureInfo.InvariantCulture);
+                var typedInt32 = Int32Value.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture);
+                var typedInt64 = Int64Value.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture);
+                var typedBool = BoolValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
+            }
+        }
+
+        [Benchmark]
+        public void ChangeTypeWithType_StringValues_Load()
+        {
+            for (int i = 0; i < LoadCount; i++)
+            {
+                var typedDateTime = DateTimeStringValue.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture);
+                var typedDecimal = DecimalStringValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture);
+                var typedString = Int32Value.ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture);
+                var typedGuid = GuidStringValue.ChangeTypeWithType(typeof(Guid), CultureInfo.InvariantCulture);
+                var typedInt16 = Int16StringValue.ChangeTypeWithType(typeof(Int16), CultureInfo.InvariantCulture);
+                var typedInt32 = Int32StringValue.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture);
+                var typedInt64 = Int64StringValue.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture);
+                var typedBool = BoolStringValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
+                var typedEmptyBool = string.Empty.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
+            }
+        }
     }
 }
