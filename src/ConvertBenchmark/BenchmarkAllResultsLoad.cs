@@ -127,5 +127,53 @@ namespace ConvertBenchmark
                 var typedEmptyBool = string.Empty.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
             }
         }
+
+        [Benchmark]
+        public void Convert_BaseLine_Boxing()
+        {
+            for (int i = 0; i < LoadCount; i++)
+            {
+                var typedDateTime = (object)Convert.ToDateTime(DateTimeValue);
+                var typedDecimal = (object)Convert.ToDecimal(DecimalValue);
+                var typedString = (object)Convert.ToString(StringValue);
+                var typedGuid = (object)GuidValue;
+                var typedInt16 = (object)Convert.ToInt16(Int16Value);
+                var typedInt32 = (object)Convert.ToInt32(Int32Value);
+                var typedInt64 = (object)Convert.ToInt64(Int64Value);
+                var typedBool = (object)Convert.ToBoolean(BoolValue);
+            }
+        }
+
+        [Benchmark]
+        public void Convert_BaseLine_String()
+        {
+            for (int i = 0; i < LoadCount; i++)
+            {
+                var typedDateTime = Convert.ToDateTime(DateTimeStringValue);
+                var typedDecimal = Convert.ToDecimal(DecimalStringValue);
+                var typedString = Convert.ToString(StringValue);
+                var typedGuid = Guid.Parse(GuidStringValue);
+                var typedInt16 = Convert.ToInt16(Int16StringValue);
+                var typedInt32 = Convert.ToInt32(Int32StringValue);
+                var typedInt64 = Convert.ToInt64(Int64StringValue);
+                var typedBool = Convert.ToBoolean(BoolStringValue);
+            }
+        }
+
+        [Benchmark(Baseline = true)]
+        public void Convert_BaseLine_Typed()
+        {
+            for (int i = 0; i < LoadCount; i++)
+            {
+                var typedDateTime = Convert.ToDateTime(DateTimeValue);
+                var typedDecimal = Convert.ToDecimal(DecimalValue);
+                var typedString = Convert.ToString(StringValue);
+                var typedGuid = GuidValue;
+                var typedInt16 = Convert.ToInt16(Int16Value);
+                var typedInt32 = Convert.ToInt32(Int32Value);
+                var typedInt64 = Convert.ToInt64(Int64Value);
+                var typedBool = Convert.ToBoolean(BoolValue);
+            }
+        }
     }
 }
