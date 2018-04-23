@@ -80,6 +80,22 @@ namespace ConvertBenchmark
         }
 
         [Benchmark]
+        public void ChangeTypeWithType_IgnoreCultureWhenSameType_Load()
+        {
+            for (int i = 0; i < LoadCount; i++)
+            {
+                var typedDateTime = DateTimeValue.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture, true);
+                var typedDecimal = DecimalValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture, true);
+                var typedString = StringValue.ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture, true);
+                var typedGuid = GuidValue.ChangeTypeWithType(typeof(Guid), CultureInfo.InvariantCulture, true);
+                var typedInt16 = Int16Value.ChangeTypeWithType(typeof(Int16), CultureInfo.InvariantCulture, true);
+                var typedInt32 = Int32Value.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture, true);
+                var typedInt64 = Int64Value.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture, true);
+                var typedBool = BoolValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture, true);
+            }
+        }
+
+        [Benchmark]
         public void ChangeTypeWithType_Load()
         {
             for (int i = 0; i < LoadCount; i++)

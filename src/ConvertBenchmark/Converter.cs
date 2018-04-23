@@ -144,7 +144,7 @@ namespace ConvertBenchmark
             return (T)value;
         }
 
-        public static object ChangeTypeWithType(this object value, Type toType, CultureInfo cultureInfo)
+        public static object ChangeTypeWithType(this object value, Type toType, CultureInfo cultureInfo, bool ignoreCultureWhenSameType = false)
         {
             if (cultureInfo == null) throw new ArgumentNullException("cultureInfo");
 
@@ -160,6 +160,11 @@ namespace ConvertBenchmark
 
             if (value.GetType() == toType)
             {
+                if (ignoreCultureWhenSameType)
+                {
+                    return value;
+                }
+
                 return Convert.ChangeType(value, toType, cultureInfo);
             }
 

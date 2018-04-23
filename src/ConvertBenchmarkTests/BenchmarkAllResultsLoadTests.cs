@@ -46,6 +46,16 @@ namespace ConvertBenchmark.Tests
         }
 
         [TestMethod()]
+        public void ChangeTypeWithType_IgnoreCultureWhenSameType_Load_Test()
+        {
+            // Assert
+            var benchmarkAllResults = new BenchmarkAllResultsLoad();
+
+            // Action
+            benchmarkAllResults.ChangeTypeWithType_IgnoreCultureWhenSameType_Load();
+        }
+
+        [TestMethod()]
         public void ChangeTypeWithType_Load_Test()
         {
             // Assert
