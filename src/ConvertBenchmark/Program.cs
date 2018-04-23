@@ -10,6 +10,7 @@ namespace ConvertBenchmark
             var summaryString = BenchmarkRunner.Run<BenchmarkString>();
             var summaryInt = BenchmarkRunner.Run<BenchmarkInt>();
             var summaryDateTime = BenchmarkRunner.Run<BenchmarkDateTime>();
+            var summaryAllResults = BenchmarkRunner.Run<BenchmarkAllResults>();
 
             Console.ReadKey();
         }

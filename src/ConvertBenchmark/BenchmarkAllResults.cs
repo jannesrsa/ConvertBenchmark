@@ -68,7 +68,7 @@ namespace ConvertBenchmark
             }
         }
 
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         public void ChangeTypeWithGeneric_String()
         {
             var dataReader = new DataTableReader(TestData.StringDataTable);
