@@ -62,7 +62,7 @@ namespace ConvertBenchmark
             }
         }
 
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         public void ChangeTypeWithGeneric()
         {
             for (int i = 0; i < 1; i++)
@@ -126,7 +126,7 @@ namespace ConvertBenchmark
             }
         }
 
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         public void ChangeType_Load_Generic()
         {
             for (int i = 0; i < LoadCount; i++)
