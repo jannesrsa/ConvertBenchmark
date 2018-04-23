@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertBenchmark", "src\ConvertBenchmark\ConvertBenchmark.csproj", "{2667EF84-BC97-4E45-8CE4-C1228C406005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertBenchmarkTests", "src\ConvertBenchmarkTests\ConvertBenchmarkTests.csproj", "{AED29CCF-9916-4BF3-AA79-26B9C94A4324}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{2667EF84-BC97-4E45-8CE4-C1228C406005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2667EF84-BC97-4E45-8CE4-C1228C406005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2667EF84-BC97-4E45-8CE4-C1228C406005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AED29CCF-9916-4BF3-AA79-26B9C94A4324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED29CCF-9916-4BF3-AA79-26B9C94A4324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED29CCF-9916-4BF3-AA79-26B9C94A4324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED29CCF-9916-4BF3-AA79-26B9C94A4324}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
