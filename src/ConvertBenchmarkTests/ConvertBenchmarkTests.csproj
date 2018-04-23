@@ -56,10 +56,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BenchmarkAllResultsTests.cs" />
     <Compile Include="BenchmarkDateTimeTests.cs" />
     <Compile Include="BenchmarkGuidTests.cs" />
     <Compile Include="BenchmarkIntTests.cs" />
-    <Compile Include="BenchmarkAllResultsTests.cs" />
+    <Compile Include="BenchmarkDataTableResultsTests.cs" />
     <Compile Include="BenchmarkStringTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
