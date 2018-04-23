@@ -3,11 +3,9 @@ using System.Globalization;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Attributes.Columns;
 using BenchmarkDotNet.Attributes.Exporters;
-using BenchmarkDotNet.Attributes.Jobs;
 
 namespace ConvertBenchmark
 {
-    [ClrJob(isBaseline: true)]
     [MinColumn]
     [MaxColumn]
     [HtmlExporter]
@@ -16,12 +14,20 @@ namespace ConvertBenchmark
     [MemoryDiagnoser]
     public class BenchmarkDateTime
     {
-        public DateTime DateTimeValue { get; set; } = DateTime.MaxValue;
+        public DateTime DateTimeValue { get; } = DateTime.MaxValue;
 
-        [Benchmark]
+        public string StringDateTimeValue { get; } = DateTime.MaxValue.ToString();
+
+        [Benchmark(Baseline = true)]
         public object ChangeTypeWithReflection() => Converter.ChangeType(DateTimeValue, typeof(DateTime), CultureInfo.CurrentCulture);
 
         [Benchmark]
         public DateTime ChangeTypeWithGeneric() => Converter.ChangeType<DateTime>(DateTimeValue, CultureInfo.CurrentCulture);
+
+        [Benchmark]
+        public DateTime ChangeTypeWithGeneric_String() => Converter.ChangeType<DateTime>(StringDateTimeValue, CultureInfo.CurrentCulture);
+
+        [Benchmark]
+        public object ChangeTypeWithReflection_String() => Converter.ChangeType(StringDateTimeValue, typeof(DateTime), CultureInfo.CurrentCulture);
     }
 }

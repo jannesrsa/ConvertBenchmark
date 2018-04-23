@@ -1,12 +1,11 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Attributes.Columns;
 using BenchmarkDotNet.Attributes.Exporters;
-using BenchmarkDotNet.Attributes.Jobs;
 
 namespace ConvertBenchmark
 {
-    [ClrJob(isBaseline: true)]
     [MinColumn]
     [MaxColumn]
     [HtmlExporter]
@@ -15,10 +14,9 @@ namespace ConvertBenchmark
     [MemoryDiagnoser]
     public class BenchmarkString
     {
-        [Params("", "StringValue")]
-        public string StringValue { get; set; }
+        public string StringValue { get; } = Guid.NewGuid().ToString();
 
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public string ChangeTypeWithGeneric() => Converter.ChangeType<string>(StringValue, CultureInfo.CurrentCulture);
 
         [Benchmark]
