@@ -140,11 +140,12 @@
   <ItemGroup>
     <Compile Include="BenchmarkDateTime.cs" />
     <Compile Include="BenchmarkGuid.cs" />
+    <Compile Include="BenchmarkAllResults.cs" />
     <Compile Include="BenchmarkString.cs" />
     <Compile Include="BenchmarkInt.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="MockAllPropertiesDataReader.cs" />
+    <Compile Include="TestData.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

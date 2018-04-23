@@ -3,46 +3,46 @@
 namespace ConvertBenchmark.Tests
 {
     [TestClass()]
-    public class BenchmarkGuidTests
+    public class BenchmarkAllResultsTests
     {
         [TestMethod()]
         public void ChangeTypeWithReflectionTest()
         {
             // Assert
-            var benchmarkGuid = new BenchmarkGuid();
+            var benchmarkAllResults = new BenchmarkAllResults();
 
             // Action
-            var result = benchmarkGuid.ChangeTypeWithReflection();
+            benchmarkAllResults.ChangeTypeWithReflection();
         }
 
         [TestMethod()]
         public void ChangeTypeWithGenericTest()
         {
             // Assert
-            var benchmarkGuid = new BenchmarkGuid();
+            var benchmarkAllResults = new BenchmarkAllResults();
 
             // Action
-            var result = benchmarkGuid.ChangeTypeWithGeneric();
+            benchmarkAllResults.ChangeTypeWithGeneric();
         }
 
         [TestMethod()]
         public void ChangeTypeWithGeneric_StringTest()
         {
             // Assert
-            var benchmarkGuid = new BenchmarkGuid();
+            var benchmarkAllResults = new BenchmarkAllResults();
 
             // Action
-            var result = benchmarkGuid.ChangeTypeWithGeneric_String();
+            benchmarkAllResults.ChangeTypeWithGeneric_String();
         }
 
         [TestMethod()]
         public void ChangeTypeWithReflection_StringTest()
         {
             // Assert
-            var benchmarkGuid = new BenchmarkGuid();
+            var benchmarkAllResults = new BenchmarkAllResults();
 
             // Action
-            var result = benchmarkGuid.ChangeTypeWithReflection_String();
+            benchmarkAllResults.ChangeTypeWithReflection_String();
         }
     }
 }
