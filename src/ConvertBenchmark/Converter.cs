@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -10,9 +11,8 @@ namespace ConvertBenchmark
     /// </summary>
     public static class Converter
     {
-        private static ConcurrentDictionary<Type, bool> _convertableDictionary = new ConcurrentDictionary<Type, bool>();
-        private static ConcurrentDictionary<Type, bool> _nullableDictionary = new ConcurrentDictionary<Type, bool>();
-        private static ConcurrentDictionary<Type, int> _typeDictionary = new ConcurrentDictionary<Type, int>();
+        private static Dictionary<Type, bool> _convertableDictionary = new Dictionary<Type, bool>();
+        private static Dictionary<Type, bool> _nullableDictionary = new Dictionary<Type, bool>();
 
         private static Type _nullableType = typeof(Nullable<>);
 
@@ -165,7 +165,7 @@ namespace ConvertBenchmark
                 return null;
             }
 
-            if (AreTypesEqual(value, toType))
+            if (value.GetType() == toType)
             {
                 return ChangeTypeWithCulture(value, toType, cultureInfo);
             }
@@ -258,28 +258,6 @@ namespace ConvertBenchmark
             }
 
             return ChangeTypeWithCulture(value, toType, cultureInfo);
-        }
-
-        private static bool AreTypesEqual(object value, Type toType)
-        {
-            if (value == null)
-            {
-                return false;
-            }
-
-            if (!_typeDictionary.ContainsKey(toType))
-            {
-                _typeDictionary[toType] = _typeDictionary.Count;
-            }
-
-            var valueType = value.GetType();
-
-            if (!_typeDictionary.ContainsKey(valueType))
-            {
-                _typeDictionary[valueType] = _typeDictionary.Count;
-            }
-
-            return _typeDictionary[toType] == _typeDictionary[valueType];
         }
 
         public static bool IsNullOrEmptyString(this object value)
