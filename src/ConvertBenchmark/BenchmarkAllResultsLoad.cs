@@ -13,7 +13,7 @@ namespace ConvertBenchmark
     [MemoryDiagnoser]
     public class BenchmarkAllResultsLoad
     {
-        private const int LoadCount = 100000;
+        private const int LoadCount = 10;
         private static BenchmarkAllResults _benchmarkAllResults = new BenchmarkAllResults();
 
         [Benchmark]
@@ -57,7 +57,7 @@ namespace ConvertBenchmark
         {
             for (int i = 0; i < LoadCount; i++)
             {
-                _benchmarkAllResults.ChangeTypeWithType_Load();
+                _benchmarkAllResults.ChangeTypeWithType();
             }
         }
 

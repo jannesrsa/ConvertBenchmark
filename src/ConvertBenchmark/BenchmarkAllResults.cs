@@ -24,6 +24,7 @@ namespace ConvertBenchmark
             var typedInt32 = Int32Value.ChangeType<Int32>(CultureInfo.InvariantCulture);
             var typedInt64 = Int64Value.ChangeType<Int64>(CultureInfo.InvariantCulture);
             var typedBool = BoolValue.ChangeType<bool>(CultureInfo.InvariantCulture);
+            var typedNullableInt64 = NullableInt64Value.ChangeType<long?>(CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
@@ -37,6 +38,8 @@ namespace ConvertBenchmark
             var typedInt32 = Int32StringValue.ChangeType<Int32>(CultureInfo.InvariantCulture);
             var typedInt64 = Int64StringValue.ChangeType<Int64>(CultureInfo.InvariantCulture);
             var typedBool = BoolStringValue.ChangeType<bool>(CultureInfo.InvariantCulture);
+            var typedEmptyBool = string.Empty.ChangeType<bool>(CultureInfo.InvariantCulture);
+            var typedNullableInt64 = NullableInt64StringValue.ChangeType<long?>(CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
@@ -50,6 +53,7 @@ namespace ConvertBenchmark
             var typedInt32 = Int32Value.ChangeType(typeof(Int32), CultureInfo.InvariantCulture);
             var typedInt64 = Int64Value.ChangeType(typeof(Int64), CultureInfo.InvariantCulture);
             var typedBool = BoolValue.ChangeType(typeof(bool), CultureInfo.InvariantCulture);
+            var typedNullableInt64 = NullableInt64Value.ChangeType(typeof(long?), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
@@ -63,10 +67,12 @@ namespace ConvertBenchmark
             var typedInt32 = Int32StringValue.ChangeType(typeof(Int32), CultureInfo.InvariantCulture);
             var typedInt64 = Int64StringValue.ChangeType(typeof(Int64), CultureInfo.InvariantCulture);
             var typedBool = BoolStringValue.ChangeType(typeof(bool), CultureInfo.InvariantCulture);
+            var typedEmptyBool = string.Empty.ChangeType(typeof(bool), CultureInfo.InvariantCulture);
+            var typedNullableInt64 = NullableInt64StringValue.ChangeType(typeof(long?), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_Load()
+        public void ChangeTypeWithType()
         {
             var typedDateTime = DateTimeValue.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture);
             var typedDecimal = DecimalValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture);
@@ -76,6 +82,7 @@ namespace ConvertBenchmark
             var typedInt32 = Int32Value.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture);
             var typedInt64 = Int64Value.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture);
             var typedBool = BoolValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
+            var typedNullableInt64 = NullableInt64Value.ChangeTypeWithType(typeof(long?), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
@@ -90,6 +97,7 @@ namespace ConvertBenchmark
             var typedInt64 = Int64StringValue.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture);
             var typedBool = BoolStringValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
             var typedEmptyBool = string.Empty.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
+            var typedNullableInt64 = NullableInt64StringValue.ChangeTypeWithType(typeof(long?), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]

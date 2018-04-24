@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -9,6 +10,12 @@ namespace ConvertBenchmark
     /// </summary>
     public static class Converter
     {
+        private static ConcurrentDictionary<Type, bool> _convertableDictionary = new ConcurrentDictionary<Type, bool>();
+        private static ConcurrentDictionary<Type, bool> _nullableDictionary = new ConcurrentDictionary<Type, bool>();
+        private static ConcurrentDictionary<Type, int> _typeDictionary = new ConcurrentDictionary<Type, int>();
+
+        private static Type _nullableType = typeof(Nullable<>);
+
         public static object ChangeType(this object value, Type toType, CultureInfo cultureInfo)
         {
             try
@@ -158,7 +165,7 @@ namespace ConvertBenchmark
                 return null;
             }
 
-            if (value.GetType() == toType)
+            if (AreTypesEqual(value, toType))
             {
                 return ChangeTypeWithCulture(value, toType, cultureInfo);
             }
@@ -253,37 +260,26 @@ namespace ConvertBenchmark
             return ChangeTypeWithCulture(value, toType, cultureInfo);
         }
 
-        private static object ChangeTypeWithCulture(object value, Type toType, CultureInfo cultureInfo)
+        private static bool AreTypesEqual(object value, Type toType)
         {
-            if (toType.IsGenericType &&
-                toType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (value == null)
             {
-                toType = Nullable.GetUnderlyingType(toType);
+                return false;
             }
 
-            try
+            if (!_typeDictionary.ContainsKey(toType))
             {
-                if (toType is IConvertible || (toType.IsValueType && !toType.IsEnum))
-                {
-                    return Convert.ChangeType(value, toType, cultureInfo);
-                }
-            }
-            catch (InvalidCastException)
-            {
-                //swallow as we have one more attempt left to convert
-            }
-            catch (FormatException)
-            {
-                //swallow as we have one more attempt left to convert
+                _typeDictionary[toType] = _typeDictionary.Count;
             }
 
-            var converter = TypeDescriptor.GetConverter(toType);
-            if (converter != null && converter.CanConvertFrom(value.GetType()))
+            var valueType = value.GetType();
+
+            if (!_typeDictionary.ContainsKey(valueType))
             {
-                return converter.ConvertFrom(null, cultureInfo, value);
+                _typeDictionary[valueType] = _typeDictionary.Count;
             }
 
-            return value;
+            return _typeDictionary[toType] == _typeDictionary[valueType];
         }
 
         public static bool IsNullOrEmptyString(this object value)
@@ -294,6 +290,78 @@ namespace ConvertBenchmark
             }
 
             return false;
+        }
+
+        private static void AddToConvertableDictionary(Type toType)
+        {
+            if (_convertableDictionary.ContainsKey(toType))
+            {
+                return;
+            }
+
+            if (toType is IConvertible ||
+                (toType.IsValueType && !toType.IsEnum))
+            {
+                _convertableDictionary[toType] = true;
+            }
+            else
+            {
+                _convertableDictionary[toType] = false;
+            }
+        }
+
+        private static void AddToNullableDictionary(Type toType)
+        {
+            if (_nullableDictionary.ContainsKey(toType))
+            {
+                return;
+            }
+
+            if (toType.IsGenericType &&
+                toType.GetGenericTypeDefinition() == _nullableType)
+            {
+                _nullableDictionary[toType] = true;
+            }
+            else
+            {
+                _nullableDictionary[toType] = false;
+            }
+        }
+
+        private static object ChangeTypeWithCulture(object value, Type toType, CultureInfo cultureInfo)
+        {
+            AddToNullableDictionary(toType);
+
+            if (_nullableDictionary[toType])
+            {
+                toType = Nullable.GetUnderlyingType(toType);
+            }
+
+            AddToConvertableDictionary(toType);
+
+            if (_convertableDictionary[toType])
+            {
+                try
+                {
+                    return Convert.ChangeType(value, toType, cultureInfo);
+                }
+                catch (InvalidCastException)
+                {
+                    //swallow as we have one more attempt left to convert
+                }
+                catch (FormatException)
+                {
+                    //swallow as we have one more attempt left to convert
+                }
+            }
+
+            var converter = TypeDescriptor.GetConverter(toType);
+            if (converter != null && converter.CanConvertFrom(value.GetType()))
+            {
+                return converter.ConvertFrom(null, cultureInfo, value);
+            }
+
+            return value;
         }
 
         /// <summary>
