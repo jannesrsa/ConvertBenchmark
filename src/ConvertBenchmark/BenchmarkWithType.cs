@@ -14,111 +14,111 @@ namespace ConvertBenchmark
     public class BenchmarkWithType
     {
         [Benchmark]
-        public void ChangeType_bool()
+        public object ChangeType_bool()
         {
-            var typedBool = BoolValue.ChangeType(typeof(bool), CultureInfo.InvariantCulture);
+            return BoolValue.ChangeType(typeof(bool), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_DateTime()
+        public object ChangeType_DateTime()
         {
-            var typedDateTime = DateTimeValue.ChangeType(typeof(DateTime), CultureInfo.InvariantCulture);
+            return DateTimeValue.ChangeType(typeof(DateTime), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_Decimal()
+        public object ChangeType_Decimal()
         {
-            var typedDecimal = DecimalValue.ChangeType(typeof(Decimal), CultureInfo.InvariantCulture);
+            return DecimalValue.ChangeType(typeof(Decimal), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_Guid()
+        public object ChangeType_Guid()
         {
-            var typedGuid = GuidValue.ChangeType(typeof(Guid), CultureInfo.InvariantCulture);
+            return GuidValue.ChangeType(typeof(Guid), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_Int16()
+        public object ChangeType_Int16()
         {
-            var typedInt16 = Int16Value.ChangeType(typeof(Int16), CultureInfo.InvariantCulture);
+            return Int16Value.ChangeType(typeof(Int16), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_Int32()
+        public object ChangeType_Int32()
         {
-            var typedInt32 = Int32Value.ChangeType(typeof(Int32), CultureInfo.InvariantCulture);
+            return Int32Value.ChangeType(typeof(Int32), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_Int64()
+        public object ChangeType_Int64()
         {
-            var typedInt64 = Int64Value.ChangeType(typeof(Int64), CultureInfo.InvariantCulture);
+            return Int64Value.ChangeType(typeof(Int64), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_NullableLong()
+        public object ChangeType_NullableLong()
         {
-            var typedNullableInt64 = NullableInt64Value.ChangeType(typeof(long?), CultureInfo.InvariantCulture);
+            return NullableInt64Value.ChangeType(typeof(long?), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeType_String()
+        public object ChangeType_String()
         {
-            var typedString = StringValue.ChangeType(typeof(String), CultureInfo.InvariantCulture);
+            return StringValue.ChangeType(typeof(String), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_bool()
+        public object ChangeTypeWithType_bool()
         {
-            var typedBool = BoolValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
+            return BoolValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_DateTime()
+        public object ChangeTypeWithType_DateTime()
         {
-            var typedDateTime = DateTimeValue.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture);
+            return DateTimeValue.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_Decimal()
+        public object ChangeTypeWithType_Decimal()
         {
-            var typedDecimal = DecimalValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture);
+            return DecimalValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_Guid()
+        public object ChangeTypeWithType_Guid()
         {
-            var typedGuid = GuidValue.ChangeTypeWithType(typeof(Guid), CultureInfo.InvariantCulture);
+            return GuidValue.ChangeTypeWithType(typeof(Guid), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_Int16()
+        public object ChangeTypeWithType_Int16()
         {
-            var typedInt16 = Int16Value.ChangeTypeWithType(typeof(Int16), CultureInfo.InvariantCulture);
+            return Int16Value.ChangeTypeWithType(typeof(Int16), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_Int32()
+        public object ChangeTypeWithType_Int32()
         {
-            var typedInt32 = Int32Value.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture);
+            return Int32Value.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_Int64()
+        public object ChangeTypeWithType_Int64()
         {
-            var typedInt64 = Int64Value.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture);
+            return Int64Value.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_NullableLong()
+        public object ChangeTypeWithType_NullableLong()
         {
-            var typedNullableInt64 = NullableInt64Value.ChangeTypeWithType(typeof(long?), CultureInfo.InvariantCulture);
+            return NullableInt64Value.ChangeTypeWithType(typeof(long?), CultureInfo.InvariantCulture);
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_String()
+        public object ChangeTypeWithType_String()
         {
-            var typedString = StringValue.ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture);
+            return StringValue.ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture);
         }
     }
 }

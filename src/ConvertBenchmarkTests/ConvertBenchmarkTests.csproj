@@ -62,6 +62,7 @@
     <Compile Include="BenchmarkIntTests.cs" />
     <Compile Include="BenchmarkDataTableResultsTests.cs" />
     <Compile Include="BenchmarkStringTests.cs" />
+    <Compile Include="BenchmarkWithTypeTests.cs" />
     <Compile Include="ConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

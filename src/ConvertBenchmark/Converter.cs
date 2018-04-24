@@ -278,7 +278,7 @@ namespace ConvertBenchmark
 
             try
             {
-                if (toType is IConvertible || (toType.IsValueType && !toType.IsEnum))
+                if (typeof(IConvertible).IsAssignableFrom(toType) || (toType.IsValueType && !toType.IsEnum))
                 {
                     return Convert.ChangeType(value, toType, cultureInfo);
                 }
