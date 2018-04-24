@@ -5,15 +5,15 @@ namespace ConvertBenchmark
 {
     public static class TestData
     {
-        public static DataTable DataTable { get; }
-
-        public static DataTable StringDataTable { get; }
-
         static TestData()
         {
             DataTable = CreateInsertAllProperty(false, 1);
             StringDataTable = CreateInsertAllProperty(true, 1);
         }
+
+        public static DataTable DataTable { get; }
+
+        public static DataTable StringDataTable { get; }
 
         public static DataTable CreateInsertAllProperty(bool stringValues, int numberOfRecords = 1)
         {
