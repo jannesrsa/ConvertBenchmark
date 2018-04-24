@@ -160,7 +160,7 @@ namespace ConvertBenchmark
 
             if (value.GetType() == toType)
             {
-                return ChangeTypeFromObject(value, toType, cultureInfo);
+                return ChangeTypeWithCulture(value, toType, cultureInfo);
             }
 
             var toTypeCode = Type.GetTypeCode(toType);
@@ -250,10 +250,10 @@ namespace ConvertBenchmark
                 return Convert.ToString(value, cultureInfo);
             }
 
-            return ChangeTypeFromObject(value, toType, cultureInfo);
+            return ChangeTypeWithCulture(value, toType, cultureInfo);
         }
 
-        private static object ChangeTypeFromObject(object value, Type toType, CultureInfo cultureInfo)
+        private static object ChangeTypeWithCulture(object value, Type toType, CultureInfo cultureInfo)
         {
             if (toType.IsGenericType &&
                 toType.GetGenericTypeDefinition() == typeof(Nullable<>))
