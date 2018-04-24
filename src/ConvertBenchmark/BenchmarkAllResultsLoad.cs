@@ -13,7 +13,7 @@ namespace ConvertBenchmark
     [MemoryDiagnoser]
     public class BenchmarkAllResultsLoad
     {
-        private const int LoadCount = 1000;
+        private const int LoadCount = 100000;
 
         [Benchmark]
         public void ChangeType_With_Generic_Load()
@@ -80,22 +80,6 @@ namespace ConvertBenchmark
         }
 
         [Benchmark]
-        public void ChangeTypeWithType_IgnoreCultureWhenSameType_Load()
-        {
-            for (int i = 0; i < LoadCount; i++)
-            {
-                var typedDateTime = DateTimeValue.ChangeTypeWithType(typeof(DateTime), CultureInfo.InvariantCulture, true);
-                var typedDecimal = DecimalValue.ChangeTypeWithType(typeof(Decimal), CultureInfo.InvariantCulture, true);
-                var typedString = StringValue.ChangeTypeWithType(typeof(String), CultureInfo.InvariantCulture, true);
-                var typedGuid = GuidValue.ChangeTypeWithType(typeof(Guid), CultureInfo.InvariantCulture, true);
-                var typedInt16 = Int16Value.ChangeTypeWithType(typeof(Int16), CultureInfo.InvariantCulture, true);
-                var typedInt32 = Int32Value.ChangeTypeWithType(typeof(Int32), CultureInfo.InvariantCulture, true);
-                var typedInt64 = Int64Value.ChangeTypeWithType(typeof(Int64), CultureInfo.InvariantCulture, true);
-                var typedBool = BoolValue.ChangeTypeWithType(typeof(bool), CultureInfo.InvariantCulture, true);
-            }
-        }
-
-        [Benchmark]
         public void ChangeTypeWithType_Load()
         {
             for (int i = 0; i < LoadCount; i++)
@@ -129,7 +113,7 @@ namespace ConvertBenchmark
         }
 
         [Benchmark]
-        public void Convert_BaseLine_Boxing()
+        public void Convert_BaseLine_Load()
         {
             for (int i = 0; i < LoadCount; i++)
             {
@@ -145,7 +129,7 @@ namespace ConvertBenchmark
         }
 
         [Benchmark]
-        public void Convert_BaseLine_String()
+        public void Convert_BaseLine_String_Load()
         {
             for (int i = 0; i < LoadCount; i++)
             {
@@ -157,22 +141,6 @@ namespace ConvertBenchmark
                 var typedInt32 = Convert.ToInt32(Int32StringValue);
                 var typedInt64 = Convert.ToInt64(Int64StringValue);
                 var typedBool = Convert.ToBoolean(BoolStringValue);
-            }
-        }
-
-        [Benchmark(Baseline = true)]
-        public void Convert_BaseLine_Typed()
-        {
-            for (int i = 0; i < LoadCount; i++)
-            {
-                var typedDateTime = Convert.ToDateTime(DateTimeValue);
-                var typedDecimal = Convert.ToDecimal(DecimalValue);
-                var typedString = Convert.ToString(StringValue);
-                var typedGuid = GuidValue;
-                var typedInt16 = Convert.ToInt16(Int16Value);
-                var typedInt32 = Convert.ToInt32(Int32Value);
-                var typedInt64 = Convert.ToInt64(Int64Value);
-                var typedBool = Convert.ToBoolean(BoolValue);
             }
         }
     }

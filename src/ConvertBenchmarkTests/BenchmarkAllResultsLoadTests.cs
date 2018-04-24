@@ -46,16 +46,6 @@ namespace ConvertBenchmark.Tests
         }
 
         [TestMethod()]
-        public void ChangeTypeWithType_IgnoreCultureWhenSameType_Load_Test()
-        {
-            // Assert
-            var benchmarkAllResults = new BenchmarkAllResultsLoad();
-
-            // Action
-            benchmarkAllResults.ChangeTypeWithType_IgnoreCultureWhenSameType_Load();
-        }
-
-        [TestMethod()]
         public void ChangeTypeWithType_Load_Test()
         {
             // Assert
@@ -76,33 +66,23 @@ namespace ConvertBenchmark.Tests
         }
 
         [TestMethod()]
-        public void Convert_BaseLine_BoxingTest()
+        public void Convert_BaseLine_LoadTest()
         {
             // Assert
             var benchmarkAllResults = new BenchmarkAllResultsLoad();
 
             // Action
-            benchmarkAllResults.Convert_BaseLine_Boxing();
+            benchmarkAllResults.Convert_BaseLine_Load();
         }
 
         [TestMethod()]
-        public void Convert_BaseLine_StringTest()
+        public void Convert_BaseLine_String_LoadTest()
         {
             // Assert
             var benchmarkAllResults = new BenchmarkAllResultsLoad();
 
             // Action
-            benchmarkAllResults.Convert_BaseLine_String();
-        }
-
-        [TestMethod()]
-        public void Convert_BaseLine_TypedTest()
-        {
-            // Assert
-            var benchmarkAllResults = new BenchmarkAllResultsLoad();
-
-            // Action
-            benchmarkAllResults.Convert_BaseLine_Typed();
+            benchmarkAllResults.Convert_BaseLine_String_Load();
         }
     }
 }

@@ -144,7 +144,7 @@ namespace ConvertBenchmark
             return (T)value;
         }
 
-        public static object ChangeTypeWithType(this object value, Type toType, CultureInfo cultureInfo, bool ignoreCultureWhenSameType = false)
+        public static object ChangeTypeWithType(this object value, Type toType, CultureInfo cultureInfo)
         {
             if (cultureInfo == null) throw new ArgumentNullException("cultureInfo");
 
@@ -160,16 +160,10 @@ namespace ConvertBenchmark
 
             if (value.GetType() == toType)
             {
-                if (ignoreCultureWhenSameType)
-                {
-                    return value;
-                }
-
-                return Convert.ChangeType(value, toType, cultureInfo);
+                return ChangeTypeFromObject(value, toType, cultureInfo);
             }
 
             var toTypeCode = Type.GetTypeCode(toType);
-
             if (value is string)
             {
                 var strValue = (string)value;
@@ -256,6 +250,11 @@ namespace ConvertBenchmark
                 return Convert.ToString(value, cultureInfo);
             }
 
+            return ChangeTypeFromObject(value, toType, cultureInfo);
+        }
+
+        private static object ChangeTypeFromObject(object value, Type toType, CultureInfo cultureInfo)
+        {
             if (toType.IsGenericType &&
                 toType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
