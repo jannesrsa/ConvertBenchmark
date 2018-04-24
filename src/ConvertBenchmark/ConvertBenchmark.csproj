@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BenchmarkWithType.cs" />
     <Compile Include="BenchmarkAllResultsLoad.cs" />
     <Compile Include="BenchmarkAllResults.cs" />
     <Compile Include="BenchmarkDateTime.cs" />
