@@ -9,15 +9,15 @@ namespace ConvertBenchmark
     /// </summary>
     public static class Converter
     {
-        private static Type DateTimeOffsetType = typeof(DateTimeOffset);
-        private static Type DateTimeType = typeof(DateTime);
-        private static Type GuidType = typeof(Guid);
-        private static Type Int16Type = typeof(Int16);
-        private static Type Int32Type = typeof(Int32);
-        private static Type Int64Type = typeof(Int64);
-        private static Type NullableType = typeof(Nullable<>);
-        private static Type StringType = typeof(string);
-        private static Type TimeSpanType = typeof(TimeSpan);
+        private readonly static Type DateTimeOffsetType = typeof(DateTimeOffset);
+        private readonly static Type DateTimeType = typeof(DateTime);
+        private readonly static Type GuidType = typeof(Guid);
+        private readonly static Type Int16Type = typeof(Int16);
+        private readonly static Type Int32Type = typeof(Int32);
+        private readonly static Type Int64Type = typeof(Int64);
+        private readonly static Type NullableType = typeof(Nullable<>);
+        private readonly static Type StringType = typeof(string);
+        private readonly static Type TimeSpanType = typeof(TimeSpan);
 
         public static object ChangeType(this object value, Type toType, CultureInfo cultureInfo)
         {
@@ -154,29 +154,29 @@ namespace ConvertBenchmark
             return (T)value;
         }
 
-        public static object ChangeTypeWithType(this object value, Type toType, CultureInfo cultureInfo)
+        public static object ChangeTypeWithType(this object value, Type targetType, CultureInfo cultureInfo)
         {
             if (cultureInfo == null) throw new ArgumentNullException("cultureInfo");
 
             if (value == null)
             {
-                if (toType.IsValueType)
+                if (targetType.IsValueType)
                 {
-                    return Activator.CreateInstance(toType);
+                    return Activator.CreateInstance(targetType);
                 }
 
                 return null;
             }
 
-            if (value.GetType() == toType)
+            if (value.GetType() == targetType)
             {
-                return ChangeTypeWithCulture(value, toType, cultureInfo);
+                return value;
             }
 
-            var strValue = value as string;
-            if (strValue != null)
+            if (value is string)
             {
-                if (toType == Int16Type)
+                var strValue = (string)value;
+                if (targetType == Int16Type)
                 {
                     Int16 parseInt16;
                     if (Int16.TryParse(TrimDecimalPart(strValue, cultureInfo), NumberStyles.Integer, cultureInfo, out parseInt16))
@@ -184,7 +184,7 @@ namespace ConvertBenchmark
                         return parseInt16;
                     }
                 }
-                else if (toType == Int32Type)
+                else if (targetType == Int32Type)
                 {
                     Int32 parseInt32;
                     if (Int32.TryParse(TrimDecimalPart(strValue, cultureInfo), NumberStyles.Integer, cultureInfo, out parseInt32))
@@ -192,7 +192,7 @@ namespace ConvertBenchmark
                         return parseInt32;
                     }
                 }
-                else if (toType == Int64Type)
+                else if (targetType == Int64Type)
                 {
                     //string with value "123.000" results in error 'Input string was not in a correct format' if directly attempted to convert to Int64
                     Int64 parseInt64;
@@ -201,7 +201,7 @@ namespace ConvertBenchmark
                         return parseInt64;
                     }
                 }
-                else if (toType == DateTimeType)
+                else if (targetType == DateTimeType)
                 {
                     DateTime parseDateTime;
                     if (DateTime.TryParse(strValue, cultureInfo, DateTimeStyles.None, out parseDateTime))
@@ -217,11 +217,7 @@ namespace ConvertBenchmark
                         }
                     }
                 }
-                else if (toType == StringType)
-                {
-                    return strValue;
-                }
-                else if (toType == GuidType)
+                else if (targetType == GuidType)
                 {
                     Guid parseGuid;
                     if (Guid.TryParse(strValue, out parseGuid))
@@ -229,7 +225,7 @@ namespace ConvertBenchmark
                         return parseGuid;
                     }
                 }
-                else if (toType == TimeSpanType)
+                else if (targetType == TimeSpanType)
                 {
                     TimeSpan parseTimeSpan;
                     if (TimeSpan.TryParse(strValue, cultureInfo, out parseTimeSpan))
@@ -237,7 +233,7 @@ namespace ConvertBenchmark
                         return parseTimeSpan;
                     }
                 }
-                else if (toType == DateTimeOffsetType)
+                else if (targetType == DateTimeOffsetType)
                 {
                     DateTimeOffset parseDateTimeOffset;
                     if (DateTimeOffset.TryParse(strValue, cultureInfo, DateTimeStyles.None, out parseDateTimeOffset))
@@ -245,17 +241,17 @@ namespace ConvertBenchmark
                         return parseDateTimeOffset;
                     }
                 }
-                else if (strValue == string.Empty && toType != StringType)
+                else if (strValue == string.Empty && targetType != StringType)
                 {
-                    return ChangeTypeWithType(null, toType, cultureInfo);
+                    return ChangeTypeWithType(null, targetType, cultureInfo);
                 }
             }
-            else if (toType == StringType)
+            else if (targetType == StringType)
             {
                 return Convert.ToString(value, cultureInfo);
             }
 
-            return ChangeTypeWithCulture(value, toType, cultureInfo);
+            return ChangeTypeWithCulture(value, targetType, cultureInfo);
         }
 
         public static bool IsNullOrEmptyString(this object value)
@@ -268,19 +264,25 @@ namespace ConvertBenchmark
             return false;
         }
 
-        private static object ChangeTypeWithCulture(object value, Type toType, CultureInfo cultureInfo)
+        private static object ChangeTypeWithCulture(object value, Type targetType, CultureInfo cultureInfo)
         {
-            if (toType.IsGenericType &&
-                toType.GetGenericTypeDefinition() == NullableType)
+            if (targetType.IsGenericType &&
+                targetType.GetGenericTypeDefinition() == NullableType)
             {
-                toType = Nullable.GetUnderlyingType(toType);
+                targetType = Nullable.GetUnderlyingType(targetType);
             }
 
             try
             {
-                if (typeof(IConvertible).IsAssignableFrom(toType) || (toType.IsValueType && !toType.IsEnum))
+                var ic = value as IConvertible;
+                if (ic != null)
                 {
-                    return Convert.ChangeType(value, toType, cultureInfo);
+                    return ic.ToType(targetType, cultureInfo);
+                }
+
+                if (targetType.IsValueType && !targetType.IsEnum)
+                {
+                    return Convert.ChangeType(value, targetType, cultureInfo);
                 }
             }
             catch (InvalidCastException)
@@ -292,7 +294,7 @@ namespace ConvertBenchmark
                 //swallow as we have one more attempt left to convert
             }
 
-            var converter = TypeDescriptor.GetConverter(toType);
+            var converter = TypeDescriptor.GetConverter(targetType);
             if (converter != null && converter.CanConvertFrom(value.GetType()))
             {
                 return converter.ConvertFrom(null, cultureInfo, value);
