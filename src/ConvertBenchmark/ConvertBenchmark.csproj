@@ -138,7 +138,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BenchmarkParameterBuffer.cs" />
     <Compile Include="BenchmarkConverter.cs" />
+    <Compile Include="ParameterBuffer.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="AssemblyInfo.cs" />

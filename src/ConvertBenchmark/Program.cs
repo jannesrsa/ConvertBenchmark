@@ -13,7 +13,8 @@ namespace ConvertBenchmark
             //var summaryDateTime = BenchmarkRunner.Run<BenchmarkDateTime>();
             //var summaryDataTableResults = BenchmarkRunner.Run<BenchmarkDataTableResults>();
             //var summaryAllResults = BenchmarkRunner.Run<BenchmarkAllResults>();
-            var summaryBenchmarkAllResultsLoad = BenchmarkRunner.Run<BenchmarkConverter>();
+            //var summaryBenchmarkAllResultsLoad = BenchmarkRunner.Run<BenchmarkConverter>();
+            var summaryBenchmarkParameterBuffer = BenchmarkRunner.Run<BenchmarkParameterBuffer>();
 
             Console.ReadKey();
         }

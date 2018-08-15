@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BenchmarkConverterTests.cs" />
+    <Compile Include="BenchmarkParameterBufferTests.cs" />
     <Compile Include="ConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
